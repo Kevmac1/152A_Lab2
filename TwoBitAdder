@@ -1,0 +1,27 @@
+//The twoBitAdder is a digital circuit module designed to add two 2-bit binary numbers, along with an optional carry-in, to produce a 2-bit sum and a carry-out.
+//In this module, the input numbers a and b are both 2-bit values, and cin is the carry-in signal.
+//The output is a 2-bit sum s and a carry-out cout.
+module twoBitAdder(
+    input wire [1:0] a,
+    input wire [1:0] b,
+    input wire cin,
+    output wire [1:0] s,
+    output wire cout
+);
+wire a0, b0, c0, d0, c1;
+
+assign a0 = a[0];
+assign b0 = b[0];
+assign c0 = a[1];
+assign d0 = b[1];
+assign c1 = cin;
+  
+  assign cout  = (a0 & c0 & c1) | (b0 & c0 & c1) | (a0 & d0 & c1) | (b0 & d0 & c1) | (a0 & b0 & d0) | (a0 & b0 & c0) | (c0 & d0);
+  
+assign s[0] =  (a0 & b0 & c1) | (~a0 & b0 & ~c1) | (a0 & ~b0 & ~c1) | (~a0 & ~b0 & c1);
+
+  assign s[1] = (~a0 & ~b0 & c0 & ~d0) | (~a0 & ~c0 & d0 & ~c1) | (~b0 & ~c0 & d0 & ~c1) | (~a0 & ~b0 & ~c0 & d0) | (~a0 & c0 & ~d0 & ~c1) | (~b0 & c0 & ~d0 & ~c1) | (a0 & ~c0 & ~d0 & c1) | (b0 & ~c0 & ~d0 & c1) | (a0 & b0 & ~c0 & ~d0) | (b0 & c0 & d0 & c1) | (a0 & c0 & d0 & c1) | (a0 & b0 & c0 & d0);
+
+
+
+endmodule 
