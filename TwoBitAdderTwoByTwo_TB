@@ -1,0 +1,60 @@
+// Testbench for a 4-bit ripple-carry adder
+module fourBitAdder_TwoByTwo_tb;
+
+  // Testbench signals
+  reg [3:0] a, b; // Input registers
+  wire [3:0] s;   // Output wire
+  reg cin;        // Carry-in register
+  wire cout;      // Carry-out wire
+
+  // Instantiate the 4-bit adder (unit under test)
+  fourBitAdder_TwoByTwo uut (
+    .a(a),
+    .b(b),
+    .cin(cin),
+    .s(s),
+    .cout(cout)
+  );
+
+  // Test sequences
+  initial begin
+    // Test 1: Simple addition with no carry-in
+    a = 4'b0001;  // 1
+    b = 4'b0010;  // 2
+    cin = 1'b0;   // No carry-in
+    #10;          // Wait for propagation
+    $display("Test 1: a = %b, b = %b, cin = %b -> s = %b, cout = %b", a, b, cin, s, cout);
+
+    // Test 2: Addition with carry-in
+    a = 4'b0011;  // 3
+    b = 4'b0101;  // 5
+    cin = 1'b1;   // Carry-in
+    #10;
+    $display("Test 2: a = %b, b = %b, cin = %b -> s = %b, cout = %b", a, b, cin, s, cout);
+
+    // Test 3: Resulting in a carry-out
+    a = 4'b1111;  // 15
+    b = 4'b0001;  // 1
+    cin = 1'b0;   // No carry-in
+    #10;
+    $display("Test 3: a = %b, b = %b, cin = %b -> s = %b, cout = %b", a, b, cin, s, cout);
+
+    // Test 4: Larger addition with carry-in
+    a = 4'b1010;  // 10
+    b = 4'b0101;  // 5
+    cin = 1'b1;   // Carry-in
+    #10;
+    $display("Test 4: a = %b, b = %b, cin = %b -> s = %b, cout = %b", a, b, cin, s, cout);
+
+    // Test 5: Adding zeros
+    a = 4'b0000;  // 0
+    b = 4'b0000;  // 0
+    cin = 1'b0;   // No carry-in
+    #10;
+    $display("Test 5: a = %b, b = %b, cin = %b -> s = %b, cout = %b", a, b, cin, s, cout);
+
+    // Conclude the test
+    $finish; // End the simulation
+  end
+
+endmodule
