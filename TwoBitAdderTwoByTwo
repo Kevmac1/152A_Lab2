@@ -1,0 +1,81 @@
+//The fourBitAdder_TwoByTwo is a 4-bit adder module designed to add two 4-bit binary numbers with an optional carry-in.
+//It achieves this by chaining two instances of a 2-bit adder (twoBitAdder), allowing for the addition of the lower and upper 2 bits separately, with carry propagation between them.
+module fourBitAdder_TwoByTwo(
+
+
+   input wire [3:0] a, b,
+
+
+   input wire cin,
+
+
+   output wire [3:0] s,
+
+
+   output wire  cout
+
+
+);
+
+
+
+
+
+wire c1;
+
+
+
+
+
+twoBitAdder A1(
+
+
+   .a(a[1:0]),
+
+
+   .b(b[1:0]),
+
+
+   .cin(cin),
+
+
+   .s(s[1:0]),
+
+
+   .cout(c1)
+
+
+   
+
+
+);
+
+
+
+
+
+twoBitAdder A2(
+
+
+   .a(a[3:2]),
+
+
+   .b(b[3:2]),
+
+
+   .cin(c1),
+
+
+   .s(s[3:2]),
+
+
+   .cout(cout)
+
+
+);
+
+
+
+
+
+endmodule
